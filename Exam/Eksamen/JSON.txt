@@ -1,0 +1,19 @@
+JSON format supports the following data types -
+Type 	Description
+Number 	double- precision floating-point format in JavaScript
+String 	double-quoted Unicode with backslash escaping
+Boolean true or false
+Array 	an ordered sequence of values
+Value 	it can be a string, a number, true or false, null etc
+Object 	an unordered collection of key:value pairs
+Whitespace 	can be used between any pair of tokens
+null 	empty
+
+
+
+Number: a signed decimal number that may contain a fractional part and may use exponential E notation. JSON does not allow non-numbers like NaN, nor does it make any distinction between integer and floating-point. (Even though JavaScript uses a double-precision floating-point format for all its numeric values, other languages implementing JSON may encode numbers differently)
+String: a sequence of zero or more Unicode characters. Strings are delimited with double-quotation marks and support a backslash escaping syntax.
+Boolean: either of the values true or false
+Array: an ordered list of zero or more values, each of which may be of any type. Arrays use square bracket notation with elements being comma-separated.
+Object: an unordered collection of name/value pairs where the names (also called keys) are strings. Since objects are intended to represent associative arrays,[10] it is recommended, though not required,[11] that each key is unique within an object. Objects are delimited with curly brackets and use commas to separate each pair, while within each pair the colon ':' character separates the key or name from its value.
+null: An empty value, using the word null

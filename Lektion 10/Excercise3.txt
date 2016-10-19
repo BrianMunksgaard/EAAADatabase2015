@@ -1,0 +1,38 @@
+
+
+Customer Document:
+{CustomerId: "1234",
+ CustomerName: "Anders And",
+ Address: {CustomerAddress: "Paradis Æblevej 1", CustomerZip: "1234", CustomerCity: "Andeby"},
+ CustomerEmail: "anders_and@andeby.dk"
+ }}
+ 
+ > db.testColl.save({CustomerId: "1234",  CustomerName: "Anders And", Address: {CustomerAddress: "Paradis Æblevej 1", CustomerZip: "1234", CustomerCity: "Andeby"},  CustomerEmail: "anders_and@andeby.dk"})
+ 
+ 
+ Product Document:
+ {ProductId: "1234", ProductName: "Lenovo ThinkPad w550s", ProductPrice: 15000, ProductGroup: [{ProductGroupName: "Labtop"}, {ProductGroupName: "PC"}]}
+ 
+ Invoice Document:
+ {InvoiceId: 1234,InvoiceDate: new Date(), Customer: cust,InvoiceLine: [{Product: prod, Price: 1234.55, Quantity: 2, SumPrice: 2461.10}]
+  }
+  
+  Invoice Document:
+ {InvoiceId: 1234,
+  InvoiceDate: Date("2015-11-12")
+  Customer: Customer Document,
+  InvoiceLines: {}
+  }
+  
+  Invoice Document:
+ {InvoiceId: 1234,InvoiceDate: new Date(),
+ Customer: {CustomerId: "1234",
+ CustomerName: "Anders And",
+ Address: {CustomerAddress: "Paradis Æblevej 1", CustomerZip: "1234", CustomerCity: "Andeby"},
+ CustomerEmail: "anders_and@andeby.dk"
+ },
+ InvoiceLine: [
+ {Product: {ProductId: "1234", ProductName: "Lenovo ThinkPad w550s", ProductPrice: 15000, ProductGroup: [{ProductGroupName: "Labtop"}, {ProductGroupName: "PC"}]},
+ Price: 1234.55, Quantity: 2, SumPrice: 2461.10}]
+  }
+  

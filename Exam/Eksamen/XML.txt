@@ -1,0 +1,65 @@
+
+
+data goes in elements, metadata in attributes
+
+
+Type:
+<xs:element name="prize" type="xs:decimal"/>
+
+An element in your document might look like this:
+<prize>999.50</prize>
+
+Or it might look like this:
+<prize>+999.5450</prize>
+
+Or it might look like this:
+<prize>-999.5230</prize>
+
+Or it might look like this:
+<prize>0</prize>
+
+Or it might look like this:
+<prize>14</prize
+
+
+http://www.w3schools.com/xml/schema_dtypes_numeric.asp
+
+
+Schema:
+<xs:element name="note">
+
+<xs:complexType>
+  <xs:sequence>
+    <xs:element name="to" type="xs:string"/>
+    <xs:element name="from" type="xs:string"/>
+    <xs:element name="heading" type="xs:string"/>
+    <xs:element name="body" type="xs:string"/>
+  </xs:sequence>
+</xs:complexType>
+
+</xs:element>
+
+XML Schemas are More Powerful than DTD
+
+    XML Schemas are written in XML
+    XML Schemas are extensible to additions
+    XML Schemas support data types
+    XML Schemas support namespaces
+
+Why Use an XML Schema?
+
+With XML Schema, your XML files can carry a description of its own format.
+
+With XML Schema, independent groups of people can agree on a standard for interchanging data.
+
+With XML Schema, you can verify data.
+XML Schemas Support Data Types
+
+One of the greatest strength of XML Schemas is the support for data types:
+
+    It is easier to describe document content
+    It is easier to define restrictions on data
+    It is easier to validate the correctness of data
+    It is easier to convert data between different data types
+
+XSL (extensible stylesheet language)

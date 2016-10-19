@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BlogDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Access">
+          <Key>
+            <PropertyRef Name="AccessId" />
+          </Key>
+          <Property Name="AccessId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccessName" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+        </EntityType>
+        <EntityType Name="CategoryAssignment">
+          <Key>
+            <PropertyRef Name="PostId" />
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageData" Type="varbinary" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="PostId" />
+          </Key>
+          <Property Name="PostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Headline" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImageId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostAction">
+          <Key>
+            <PropertyRef Name="ActionId" />
+          </Key>
+          <Property Name="ActionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionName" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostLogEntry">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogDate" Type="datetime" />
+          <Property Name="PostId" Type="int" />
+          <Property Name="ActionId" Type="int" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleAccess">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="AccessId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="AccessId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleAssignment">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateName" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TagName" Type="nchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="TagAssignment">
+          <Key>
+            <PropertyRef Name="PostId" />
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserFirstName" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserLastName" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserEmail" Type="nchar" MaxLength="75" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Category__Parent__66603565">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryA__Categ__7D439ABD">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoryAssignment" Type="Self.CategoryAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="CategoryAssignment">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryA__PostI__7C4F7684">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="CategoryAssignment" Type="Self.CategoryAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="CategoryAssignment">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostLogEn__Actio__02FC7413">
+          <End Role="PostAction" Type="Self.PostAction" Multiplicity="0..1" />
+          <End Role="PostLogEntry" Type="Self.PostLogEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostAction">
+              <PropertyRef Name="ActionId" />
+            </Principal>
+            <Dependent Role="PostLogEntry">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostLogEn__PostI__02084FDA">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="PostLogEntry" Type="Self.PostLogEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="PostLogEntry">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostLogEn__State__03F0984C">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="PostLogEntry" Type="Self.PostLogEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PostLogEntry">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostLogEn__UserI__04E4BC85">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="PostLogEntry" Type="Self.PostLogEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="PostLogEntry">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoleAcces__Acces__6E01572D">
+          <End Role="Access" Type="Self.Access" Multiplicity="1" />
+          <End Role="RoleAccess" Type="Self.RoleAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Access">
+              <PropertyRef Name="AccessId" />
+            </Principal>
+            <Dependent Role="RoleAccess">
+              <PropertyRef Name="AccessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoleAcces__RoleI__6D0D32F4">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RoleAccess" Type="Self.RoleAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RoleAccess">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoleAssig__RoleI__71D1E811">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RoleAssignment" Type="Self.RoleAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RoleAssignment">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoleAssig__UserI__70DDC3D8">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="RoleAssignment" Type="Self.RoleAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoleAssignment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TagAssign__PostI__787EE5A0">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="TagAssignment" Type="Self.TagAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="TagAssignment">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TagAssign__TagId__797309D9">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TagAssignment" Type="Self.TagAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="TagId" />
+            </Principal>
+            <Dependent Role="TagAssignment">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddBlogEntry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="Headline" Type="nchar" Mode="In" />
+          <Parameter Name="Content" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="AddBlogEntryWithImage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="Headline" Type="nchar" Mode="In" />
+          <Parameter Name="Content" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ImageData" Type="varbinary" Mode="In" />
+        </Function>
+        <EntityContainer Name="BlogDBModelStoreContainer">
+          <EntitySet Name="Access" EntityType="Self.Access" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryAssignment" EntityType="Self.CategoryAssignment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostAction" EntityType="Self.PostAction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostLogEntry" EntityType="Self.PostLogEntry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleAccess" EntityType="Self.RoleAccess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleAssignment" EntityType="Self.RoleAssignment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TagAssignment" EntityType="Self.TagAssignment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Category__Parent__66603565" Association="Self.FK__Category__Parent__66603565">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryA__Categ__7D439ABD" Association="Self.FK__CategoryA__Categ__7D439ABD">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoryAssignment" EntitySet="CategoryAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryA__PostI__7C4F7684" Association="Self.FK__CategoryA__PostI__7C4F7684">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="CategoryAssignment" EntitySet="CategoryAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostLogEn__Actio__02FC7413" Association="Self.FK__PostLogEn__Actio__02FC7413">
+            <End Role="PostAction" EntitySet="PostAction" />
+            <End Role="PostLogEntry" EntitySet="PostLogEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostLogEn__PostI__02084FDA" Association="Self.FK__PostLogEn__PostI__02084FDA">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostLogEntry" EntitySet="PostLogEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostLogEn__State__03F0984C" Association="Self.FK__PostLogEn__State__03F0984C">
+            <End Role="State" EntitySet="State" />
+            <End Role="PostLogEntry" EntitySet="PostLogEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostLogEn__UserI__04E4BC85" Association="Self.FK__PostLogEn__UserI__04E4BC85">
+            <End Role="User" EntitySet="User" />
+            <End Role="PostLogEntry" EntitySet="PostLogEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoleAcces__Acces__6E01572D" Association="Self.FK__RoleAcces__Acces__6E01572D">
+            <End Role="Access" EntitySet="Access" />
+            <End Role="RoleAccess" EntitySet="RoleAccess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoleAcces__RoleI__6D0D32F4" Association="Self.FK__RoleAcces__RoleI__6D0D32F4">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RoleAccess" EntitySet="RoleAccess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoleAssig__RoleI__71D1E811" Association="Self.FK__RoleAssig__RoleI__71D1E811">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RoleAssignment" EntitySet="RoleAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoleAssig__UserI__70DDC3D8" Association="Self.FK__RoleAssig__UserI__70DDC3D8">
+            <End Role="User" EntitySet="User" />
+            <End Role="RoleAssignment" EntitySet="RoleAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TagAssign__PostI__787EE5A0" Association="Self.FK__TagAssign__PostI__787EE5A0">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="TagAssignment" EntitySet="TagAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TagAssign__TagId__797309D9" Association="Self.FK__TagAssign__TagId__797309D9">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TagAssignment" EntitySet="TagAssignment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BlogDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Access">
+          <Key>
+            <PropertyRef Name="AccessId" />
+          </Key>
+          <Property Name="AccessId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccessName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.RoleAccess" FromRole="Access" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK__Category__Parent__66603565" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category2" Relationship="Self.FK__Category__Parent__66603565" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="Post" Relationship="Self.CategoryAssignment" FromRole="Category" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageData" Type="Binary" MaxLength="1" FixedLength="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="PostId" />
+          </Key>
+          <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Headline" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PostLogEntry" Relationship="Self.FK__PostLogEn__PostI__02084FDA" FromRole="Post" ToRole="PostLogEntry" />
+          <NavigationProperty Name="Category" Relationship="Self.CategoryAssignment" FromRole="Post" ToRole="Category" />
+          <NavigationProperty Name="Tag" Relationship="Self.TagAssignment" FromRole="Post" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="PostAction">
+          <Key>
+            <PropertyRef Name="ActionId" />
+          </Key>
+          <Property Name="ActionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PostLogEntry" Relationship="Self.FK__PostLogEn__Actio__02FC7413" FromRole="PostAction" ToRole="PostLogEntry" />
+        </EntityType>
+        <EntityType Name="PostLogEntry">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogDate" Type="DateTime" Precision="3" />
+          <Property Name="PostId" Type="Int32" />
+          <Property Name="ActionId" Type="Int32" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="Post" Relationship="Self.FK__PostLogEn__PostI__02084FDA" FromRole="PostLogEntry" ToRole="Post" />
+          <NavigationProperty Name="PostAction" Relationship="Self.FK__PostLogEn__Actio__02FC7413" FromRole="PostLogEntry" ToRole="PostAction" />
+          <NavigationProperty Name="State" Relationship="Self.FK__PostLogEn__State__03F0984C" FromRole="PostLogEntry" ToRole="State" />
+          <NavigationProperty Name="User" Relationship="Self.FK__PostLogEn__UserI__04E4BC85" FromRole="PostLogEntry" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Access" Relationship="Self.RoleAccess" FromRole="Role" ToRole="Access" />
+          <NavigationProperty Name="User" Relationship="Self.RoleAssignment" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PostLogEntry" Relationship="Self.FK__PostLogEn__State__03F0984C" FromRole="State" ToRole="PostLogEntry" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TagName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Post" Relationship="Self.TagAssignment" FromRole="Tag" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserFirstName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UserLastName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="75" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PostLogEntry" Relationship="Self.FK__PostLogEn__UserI__04E4BC85" FromRole="User" ToRole="PostLogEntry" />
+          <NavigationProperty Name="Role" Relationship="Self.RoleAssignment" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK__Category__Parent__66603565">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostLogEn__PostI__02084FDA">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="PostLogEntry" Type="Self.PostLogEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="PostLogEntry">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostLogEn__Actio__02FC7413">
+          <End Role="PostAction" Type="Self.PostAction" Multiplicity="0..1" />
+          <End Role="PostLogEntry" Type="Self.PostLogEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostAction">
+              <PropertyRef Name="ActionId" />
+            </Principal>
+            <Dependent Role="PostLogEntry">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostLogEn__State__03F0984C">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="PostLogEntry" Type="Self.PostLogEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PostLogEntry">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostLogEn__UserI__04E4BC85">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="PostLogEntry" Type="Self.PostLogEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="PostLogEntry">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CategoryAssignment">
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+        </Association>
+        <Association Name="RoleAccess">
+          <End Role="Access" Type="Self.Access" Multiplicity="*" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+        </Association>
+        <Association Name="RoleAssignment">
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <Association Name="TagAssignment">
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="BlogDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Access" EntityType="Self.Access" />
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Image" EntityType="Self.Image" />
+          <EntitySet Name="Post" EntityType="Self.Post" />
+          <EntitySet Name="PostAction" EntityType="Self.PostAction" />
+          <EntitySet Name="PostLogEntry" EntityType="Self.PostLogEntry" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="State" EntityType="Self.State" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK__Category__Parent__66603565" Association="Self.FK__Category__Parent__66603565">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostLogEn__PostI__02084FDA" Association="Self.FK__PostLogEn__PostI__02084FDA">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostLogEntry" EntitySet="PostLogEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostLogEn__Actio__02FC7413" Association="Self.FK__PostLogEn__Actio__02FC7413">
+            <End Role="PostAction" EntitySet="PostAction" />
+            <End Role="PostLogEntry" EntitySet="PostLogEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostLogEn__State__03F0984C" Association="Self.FK__PostLogEn__State__03F0984C">
+            <End Role="State" EntitySet="State" />
+            <End Role="PostLogEntry" EntitySet="PostLogEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostLogEn__UserI__04E4BC85" Association="Self.FK__PostLogEn__UserI__04E4BC85">
+            <End Role="User" EntitySet="User" />
+            <End Role="PostLogEntry" EntitySet="PostLogEntry" />
+          </AssociationSet>
+          <AssociationSet Name="CategoryAssignment" Association="Self.CategoryAssignment">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="RoleAccess" Association="Self.RoleAccess">
+            <End Role="Access" EntitySet="Access" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="RoleAssignment" Association="Self.RoleAssignment">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="TagAssignment" Association="Self.TagAssignment">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Tag" EntitySet="Tag" />
+          </AssociationSet>
+          <FunctionImport Name="AddBlogEntry">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="Headline" Mode="In" Type="String" />
+            <Parameter Name="Content" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddBlogEntryWithImage">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="Headline" Mode="In" Type="String" />
+            <Parameter Name="Content" Mode="In" Type="String" />
+            <Parameter Name="ImageData" Mode="In" Type="Binary" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BlogDBModelStoreContainer" CdmEntityContainer="BlogDBEntities">
+          <EntitySetMapping Name="Access">
+            <EntityTypeMapping TypeName="BlogDBModel.Access">
+              <MappingFragment StoreEntitySet="Access">
+                <ScalarProperty Name="AccessId" ColumnName="AccessId" />
+                <ScalarProperty Name="AccessName" ColumnName="AccessName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="BlogDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Image">
+            <EntityTypeMapping TypeName="BlogDBModel.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Post">
+            <EntityTypeMapping TypeName="BlogDBModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="Headline" ColumnName="Headline" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostAction">
+            <EntityTypeMapping TypeName="BlogDBModel.PostAction">
+              <MappingFragment StoreEntitySet="PostAction">
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostLogEntry">
+            <EntityTypeMapping TypeName="BlogDBModel.PostLogEntry">
+              <MappingFragment StoreEntitySet="PostLogEntry">
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="BlogDBModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="State">
+            <EntityTypeMapping TypeName="BlogDBModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tag">
+            <EntityTypeMapping TypeName="BlogDBModel.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="TagName" ColumnName="TagName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="BlogDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CategoryAssignment" TypeName="BlogDBModel.CategoryAssignment" StoreEntitySet="CategoryAssignment">
+            <EndProperty Name="Category">
+              <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+            </EndProperty>
+            <EndProperty Name="Post">
+              <ScalarProperty Name="PostId" ColumnName="PostId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RoleAccess" TypeName="BlogDBModel.RoleAccess" StoreEntitySet="RoleAccess">
+            <EndProperty Name="Access">
+              <ScalarProperty Name="AccessId" ColumnName="AccessId" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RoleAssignment" TypeName="BlogDBModel.RoleAssignment" StoreEntitySet="RoleAssignment">
+            <EndProperty Name="Role">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TagAssignment" TypeName="BlogDBModel.TagAssignment" StoreEntitySet="TagAssignment">
+            <EndProperty Name="Post">
+              <ScalarProperty Name="PostId" ColumnName="PostId" />
+            </EndProperty>
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="TagId" ColumnName="TagId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="AddBlogEntry" FunctionName="BlogDBModel.Store.AddBlogEntry" />
+          <FunctionImportMapping FunctionImportName="AddBlogEntryWithImage" FunctionName="BlogDBModel.Store.AddBlogEntryWithImage" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,33 @@
+RPG/DB2 Stored Procedure:
+--/*******************************************************************/
+--/*                                                                 */
+--/*        M  U  L  T  I  -  S  U  P  P  O  R  T     A  /  S        */
+--/*                                                                 */
+--/*                                                                 */
+--/*               M i d t F a c t o r i n g   A / S                 */
+--/*                                                                 */
+--/*******************************************************************/
+--/* R E T R I E V E   A R C H I V E   C O N T E N T                 */
+--/*******************************************************************/
+--/* This stored procedure is used to retrieve a list of the content  /
+--/* in a MFO archive.                                                /
+--/*******************************************************************/
+--/* C H A N G E   L O G :                                           */
+--/* --------------------------------------------------------------- */
+--/* BM  07.08.2008  SQL source created.                             */
+--/*******************************************************************/
+create procedure &LIBRARY/MF2828QC                                     
+(in pEnvironmentCode char(1),                                          
+ in pUserId char(10),             
+ in pGroupNumber decimal(3, 0),   
+ in pCompanyNumber decimal(3, 0), 
+ in pArchiveId  char(10),         
+ in pCategory char(25),           
+ in pItemType char(25),           
+ in pLanguageCode char(3),        
+ in pFromDate decimal(9, 0),      
+ in pToDate decimal(9, 0),        
+ in pClientNumber decimal(5, 0),  
+ in pDebtorNumber decimal(9, 0))  
+external name MF2828RC            
+language rpgle general

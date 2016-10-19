@@ -1,0 +1,32 @@
+
+ACID (atomicity, consistency, isolation, and durability) definition
+
+Atomicity. In a transaction involving two or more discrete pieces of information, either all of the pieces are committed or none are.
+
+Consistency. A transaction either creates a new and valid state of data, or, if any failure occurs, returns all data to its state before the transaction was started.
+
+Isolation. A transaction in process and not yet committed must remain isolated from any other transaction.
+
+Durability. Committed data is saved by the system such that, even in the event of a failure and system restart, the data is available in its correct state.
+
+
+ACID Principperne
+
+Atomicity: En transaktion skal være atomar. Dette betyder at transaktionen er en enhed, og enten skal transaktionen fuldføre alle ændringerne i databasen,
+eller også skal den ikke gennemføre transaktionen overhovedet. Man kan aldrig gennemføre nogle af ændringerne i transaktionen,
+det skal være alt eller intet! Det betyder, lidt mere jordnært, at vores gruppe af forespørgsler (transaktion), bliver behandlet som en 'enhed'/stykke.
+Dvs. at hvis en af forespørgslerne i enheden fejler, så fejler alle sammen.
+
+Consistency: Vores transaktion skal efterlade vores database i en konsistent tilstand. Dette betyder at hvis en transaktion f.eks. sletter en række,
+som har referencer til andre rækker i andre tabeller i databasen, skal disse rækker også slettes, sådan så databasens data ikke har nogle løse ender,
+altså at den er konsistent.
+
+Isolation: En transaktion skal være isoleret fra andre transaktioner, således at en transaktion ikke kan se data gennemført af andre transaktioner,
+før disse er fuldført. Dette betyder at hvis en transaktion prøver at få adgang til at opdatere data i en række, som en anden transaktion lige har opdateret,
+men denne anden transaktion er ikke færdig med sine andre operationer, så må den første transaktion vente til den anden er fuldført.
+Dette er for at undgå det som man kalder en dirty read, som betyder at vores transaktion læser noget data, som den bruger i sin opdatering,
+men dette data kan stadig nå at blive ændret af vores første transaktion. Der findes dog forskellige slags isolations grader, afhængig af hvilket DBMS man benytter.
+
+Durability: En transaktion skal kunne genskabes ved store system fejl (f.eks. strømsvigt), for at sikre at ens database forbliver konsistent.
+Dette betyder at vores transaktion på en eller anden måde skal gemmes undervejs, så vi kan genskabe den hvis dette er nødvendigt. En lagring af transaktionen
+kan f.eks. ske under nogle checkpoints, som udstikkes i transaktionen.

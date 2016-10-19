@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <!--<meta charset="utf-8"> -->
+        <title>Check Mail</title>
+    </head>
+
+    <body>
+        <script type="text/javascript" src="json_starter-filer/jquery.js"></script>
+        <script type="text/javascript">
+            function checkMail() {
+                var email = document.getElementById('emailText').value;
+                alert(email);
+                var url = 'https://pozzad-email-validator.p.mashape.com/emailvalidator/validateEmail/{' + email + '}';
+                $.getJSON(url,
+                    function(data){
+                        var k = data.isValid;
+                    }
+                );
+            }
+        </script>
+
+        <div>
+            Enter email address to check: <input type="text" id="emailText"/>
+            <input type="button" id="checkButton" value="CheckMail" onclick="checkMail()"/> 
+        </div>
+        
+        <div id="resultDiv">
+
+        </div>
+        </body>
+</html>

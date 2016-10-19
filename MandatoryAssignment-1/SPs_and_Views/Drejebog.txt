@@ -1,0 +1,35 @@
+For lige at opsummere de ting jeg har sagt, har jeg lavet et component diagram.
+
+- Vi kan se forskellige grader af adgangskontrol
+- Vi kan se 3 applikationer, som alle anvender samme DB.
+- Vi kan se et view, PublishedView
+	- Bruges til at vise blog data vedr. blog posts, som er i published state.
+	- Indeholder både joins og subqueries til at vise mere information.
+- Vi kan se en SP, AddBlogEntry
+	- Bruges til at oprette en ny blog post i draft state.
+	- Flere insert statements.
+	- Bruger transaktion kontrol.
+		- Enten gennemføres alle inserts eller alle annulleres.
+- og vi kan se at ansvaret for at tilføje en blog post er flyttet til DB i stedet for den enkelte applikation.
+	- Nemmere at ændre proceduren for tilføjelse af blog entry.
+	- Simplere kode i DataAccess laget.
+	- Reducerer risikoen for fejl.
+
+
+
+SP
+- I min BlogDB skal disse 3 insert statements udføres for at oprette en ny blog post i draft state.
+- I en SP ser det således ud. Bemærk transaktion med commit eller rollback.
+- Det betyder at enten er alle inserts gennemført eller også er ingen af dem gennemført.
+- Ved at udføre SQL'en dannes en SP.
+- Denne kan jeg så kalde således: exec ...
+- Og vi kan så bagefter se at der er tilføjet en record.
+
+View
+- Til at vise published blog post og relevante meta data kan vi bruge følgende SQL.
+- For at simplificere dette kan vi med fordel danne et view.
+- Vi kan derefter bruge vores view til forespørgsel.
+- Jeg prøver lige at publishe den blog post, vedr. europa joller, som jeg lavede tidligere.
+- Og kører min forespørgsel igen.
+
+Det var det jeg ville fortælle om stored procedures and views. Håber i kan bruge det.

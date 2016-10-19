@@ -1,0 +1,36 @@
+	   
+db.BlogPost.insert({Header: "Zoom8", Content: "The Zoom8 is a youth racing dinghy sailed in Denmark, Sweden, Norway, Finland, Austria, the Netherlands, Estonia, Latvia and Russia.",
+User: {FirstName: "Brian", LastName: "Munksgaard"},
+Tags: ["Mast", "Rig"],
+State: "Draft",
+Category: "Dinghy"
+})
+
+db.BlogPost.insert({Header: "RS Tera", Content: "The RS Tera is suitable for introducing newcomers to the sport of sailing, but is also a good boat to race.",
+User: {FirstName: "Brian", LastName: "Munksgaard"},
+Tags: ["Mast", "Rig"],
+State: "Draft",
+Category: "Dinghy"
+})
+
+db.BlogPost.insert({Header: "Drabant 22", Content: "Bådtypen Drabant 22 er konstrueret af Gert Gerlach og den første drabant 22 blev søsat i 1968, der er ialt blevet produceret 203 drabant 22'ere.",
+User: {FirstName: "Brian", LastName: "Munksgaard"},
+Tags: ["Mast", "Rig", "Engine"],
+State: "Draft",
+Category: "Keelboat"
+})
+
+All post tagged with "Engine":
+db.BlogPost.find({Tags: {TagName: "Engine"}}).pretty()
+
+All post with category "Dinghy":
+db.BlogPost.find({Category: "Dinghy"}).pretty()
+
+Number of posts with the category "Dinghy":
+db.BlogPost.find({Category: "Dinghy"}).count()
+
+All posts in draft state:
+db.BlogPost.find({State: "Draft"}).pretty()
+
+All posts created by Brian:
+db.BlogPost.find({User.FirstName: "Brian"})

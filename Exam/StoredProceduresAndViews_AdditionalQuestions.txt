@@ -1,0 +1,19 @@
+NOCOUNT ON:
+Stops the message that shows the count of the number of rows affected by a Transact-SQL statement or stored procedure from being returned as part of the result set.
+
+CALL SP:
+EXEC dbo.selectTagsFromBlogPost
+@blogId = 1234;
+
+WHAT IT DOES:
+Returnerer alle TagNames, som er knyttet til den aktuelle blog post.
+
+Kunne dette være løst på anden måde end at bruge SP?
+Hvorfor er det ikke lavet som et view?
+Hvorfor bruges ikke en transaction i SP?
+Hvor mange tabeller er involveret (Tag, TagBlogPost, BlogPost)?
+Kan du tegne en (fysisk)datamodel?
+Hvilke kolonner/attributter mener du, der skal være index på?
+
+
+

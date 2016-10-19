@@ -1,0 +1,82 @@
+1NF: attributes depend on the key
+2NF: attributes depend on the whole key
+3NF: attributes depend on nothing but the key
+
+Normalisering
+
+Normalisering er en teknik til sikring af databasen, således at rettelser kan gennemføres med mindst mulig indflydelse på det oprindelige system.
+
+Den væsentligste årsag til at anvende normaliseringsteknikken er at undgå redundante data. Med redundans menes, at samme oplysning er registreret flere steder. Dette er uhensigtsmæssigt ikke alene af pladshensyn, men som før nævnt især i forhold til gennemførelsen af rettelser i registreringerne.
+
+Det klassiske eksempel er medlemslisten, hvor både postnummer og bynavn er registreret for hvert medlem, idet bynavnet er givet, når postnummeret først er indtastet. Løsningen er at undlade at registrere bynavnet.
+
+I det papirbaserede registreringssystem medtages bynavnet af indlysende årsager, da fx udsendelse af breve til medlemmerne således ikke nødvendiggør et opslag i en postnummeroversigt. Argumentet for at tillade redundans i det papirbaserede registreringssystem er derfor holdbart.
+
+Problemer med redundans opstår i eksemplet, når et nyt medlem skal oprettes. Det er da nødvendigt at angive samme data flere gange. Dette kaldes indsætte-anomali. Ved rettelser opstår et lignende problem, idet der ved redundans skal rettes flere steder, rette-anomali, hvilket kan føre til inkonsistens, hvis ikke alle forekomster rettes. Inkonsistens betyder, at der findes modstridende data registreret i systemet. Endelig ved sletning af data, slette-anomali, kan relevant data gå tabt.
+
+Når data registreres elektronisk, kan redundans imidlertid ikke accepteres, og det er i den forbindelse at normaliseringsteknikken bringes på bane.
+
+Vi skal her begrænse normaliseringsteknikken til 3 normalformer. Der findes flere trin, men når en tabel er bragt på 3. normalform, så vil den i langt de fleste tilfælde også opfylde 4. og 5. normalform.
+
+Entydighed af nøgle
+
+Definition
+
+En nøgle er det minimale antal felter i en tabel, hvis værdi entydigt identificerer en post i tabellen
+
+En nøgle kan således bestå ét eller flere felter også kaldet en sammensat nøgle. En mængde af felter, der indeholder en nøgle kaldes en supernøgle. Enhver tabel har mindst én supernøgle. Fx så udgør mængden af alle felter i en tabel en nøgle, som entydigt identificerer en post. Hvis der findes flere nøgler, så kaldes de kandidatnøgler. Den valgte nøgle kaldes primærnøglen, medens de resterende kaldes alternative nøgler eller kandidatnøgler.
+
+1. Normalform
+
+Definition
+
+En tabel er på første normalform (1NF), hvis og kun hvis
+
+    Der eksisterer en primærnøgle
+    Der ikke findes gentagende grupper
+
+Formål
+
+Skab en entydig nøgle.
+
+Teknik
+
+Hvis en tabel har en gentagende gruppe af felter inden for samme (næsten) primærnøgle, så skal denne gruppe af felter fjernes fra tabellen og lægges over i en ny tabel sammen med en kopi af primærnøglen.
+
+2. Normalform
+
+Definition
+
+En tabel er på anden normalform (2NF), hvis og kun hvis
+
+    Tabellen er på 1NF
+    Der ikke findes felter uden for primærnøglen, som kun er afhængige af en del af primærnøglen
+
+Bemærk, at en direkte konsekvens af denne definition giver, at en tabel umiddelbart er på 2NF, hvis den er på 1NF og primærnøglen kun består af ét felt.
+
+Formål
+
+Fjern afhængighed af en del af en sammensat primærnøgle.
+
+Teknik
+
+Hvis en tabel har en sammensat primærnøgle, og der findes et felt i tabellen , som ikke indgår i primærnøglen og som er direkte afhængigt af en del af primærnøglen, så skal dette felt fjernes fra tabellen og lægges over i en ny tabel sammen med en kopi af del-primærnøglen, som herefter bliver primærnøglen i den nye tabel.
+
+3. Normalform
+
+Definition
+
+En tabel er på tredje normalform (3NF), hvis og kun hvis
+
+    Tabellen er på 2NF
+    Der ikke findes felter uden for primærnøglen, som indbyrdes afhængige
+
+Medlemstabellen, hvor både feltet postnummer og by indgår, er det klassiske eksempel på en tabel, som ikke er på 3NF.
+
+Formål
+
+Fjern afhængighed af felter, der ikke indgår i primærnøglen
+
+Teknik
+
+Hvis der er felter i tabellen, som er direkte afhængige af et felt (determinant), som ikke indgår i primærnøglen, skal disse felter fjernes fra tabellen og lægges over i en ny tabel sammen med en kopi af determinanten.

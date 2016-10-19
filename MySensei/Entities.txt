@@ -1,0 +1,13 @@
+User (Normal user, admin user)
+Competence
+Location
+Log
+Rating
+Sensei
+Apprentice
+
+
+-- Services
+Check Mail Service
+Zip code lookup
+
